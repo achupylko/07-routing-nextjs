@@ -15,14 +15,20 @@ import EmptyState from '@/components/EmptyState/EmptyState';
 
 import css from './Notes.client.module.css';
 
-function NotesClient() {
+type Props = {
+  tagQuery: string;
+};
+
+function NotesClient({ tagQuery }: Props) {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const tag = tagQuery === 'all' ? undefined : tagQuery;
+
   const { data, isLoading, isError, error, isFetching, isSuccess } = useQuery({
-    queryKey: ['notes', searchQuery, currentPage],
-    queryFn: () => fetchNotes(searchQuery, currentPage),
+    queryKey: ['notes', searchQuery, tag, currentPage],
+    queryFn: () => fetchNotes(searchQuery, tag, currentPage),
     placeholderData: keepPreviousData,
   });
 

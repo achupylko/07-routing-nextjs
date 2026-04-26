@@ -25,7 +25,7 @@ export default function NoteDetailsClient() {
   });
 
   return (
-    <div>
+    <main className={css.main}>
       <div className={css.container}>
         {(isLoading || isFetching) && <Loader />}
 
@@ -46,6 +46,6 @@ export default function NoteDetailsClient() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }
