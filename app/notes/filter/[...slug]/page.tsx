@@ -7,11 +7,11 @@ import {
 } from '@tanstack/react-query';
 
 type Props = {
-  params: Promise<{ tag: string }>;
+  params: Promise<{ slug: string[] }>;
 };
 
 export default async function Notes({ params }: Props) {
-  const { tag } = await params;
+  const { slug } = await params;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -22,7 +22,7 @@ export default async function Notes({ params }: Props) {
   return (
     <>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <NotesClient tagQuery={tag} />
+        <NotesClient tagQuery={slug[0]} />
       </HydrationBoundary>
     </>
   );
