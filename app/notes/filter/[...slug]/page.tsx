@@ -12,7 +12,9 @@ type Props = {
 
 export default async function NotesByCategory({ params }: Props) {
   const { slug } = await params;
+
   const category = slug[0];
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
