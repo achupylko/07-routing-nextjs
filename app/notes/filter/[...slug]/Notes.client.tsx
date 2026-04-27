@@ -16,15 +16,15 @@ import EmptyState from '@/components/EmptyState/EmptyState';
 import css from './Notes.client.module.css';
 
 type Props = {
-  tagQuery: string;
+  category: string;
 };
 
-function NotesClient({ tagQuery }: Props) {
+function NotesClient({ category }: Props) {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const tag = tagQuery === 'all' ? undefined : tagQuery;
+  const tag = category === 'all' ? undefined : category;
 
   const { data, isLoading, isError, error, isFetching, isSuccess } = useQuery({
     queryKey: ['notes', searchQuery, tag, currentPage],
