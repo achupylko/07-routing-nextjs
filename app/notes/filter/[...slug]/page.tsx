@@ -10,19 +10,20 @@ type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
-export default async function Notes({ params }: Props) {
+export default async function NotesByCategory({ params }: Props) {
   const { slug } = await params;
+  const category = slug[0];
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['notes', slug[0], ''],
-    queryFn: () => fetchNotes('', '', 1),
+    queryKey: ['notes', category],
+    queryFn: () => fetchNotes('', category, 1),
   });
 
   return (
     <>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <NotesClient tagQuery={slug[0]} />
+        <NotesClient category={category} />
       </HydrationBoundary>
     </>
   );
